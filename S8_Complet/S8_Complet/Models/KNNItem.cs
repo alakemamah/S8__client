@@ -1,6 +1,6 @@
 ﻿namespace S8_Complet.Models
 {
-    public class KNN
+    public class KNNItem
     {
         public int ID { get; set; }
         public string Algorithm { get; set; }

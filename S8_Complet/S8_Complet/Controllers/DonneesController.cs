@@ -23,7 +23,7 @@ namespace S8_Complet.Controllers
 
         // GET: api/Data
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Donnees>>> GetData()
+        public async Task<ActionResult<IEnumerable<DonneesItem>>> GetData()
         {
           if (_context.Data == null)
           {
@@ -34,7 +34,7 @@ namespace S8_Complet.Controllers
 
         // GET: api/Data/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Donnees>> GetData(int id)
+        public async Task<ActionResult<DonneesItem>> GetData(int id)
         {
           if (_context.Data == null)
           {
@@ -53,7 +53,7 @@ namespace S8_Complet.Controllers
         // PUT: api/Data/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutData(int id, Donnees data)
+        public async Task<IActionResult> PutData(int id, DonneesItem data)
         {
             if (id != data.Id)
             {
@@ -84,7 +84,7 @@ namespace S8_Complet.Controllers
         // POST: api/Data
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Donnees>> PostData(Donnees data)
+        public async Task<ActionResult<DonneesItem>> PostData(DonneesItem data)
         {
           if (_context.Data == null)
           {

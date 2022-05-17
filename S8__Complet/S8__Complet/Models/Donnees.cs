@@ -12,18 +12,5 @@ namespace S8__Complet.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Donnees
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Donnees()
-        {
-            this.Prediction = new HashSet<Prediction>();
-        }
     
-        public int ID { get; set; }
-        public string DataName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Prediction> Prediction { get; set; }
-    }
 }

@@ -36,7 +36,7 @@ namespace S8_Complet.Controllers
 
         public IActionResult Prediction()
         {
-            Prediction pred = new Prediction();
+            PredictionItem pred = new PredictionItem();
             
             return View();
         }

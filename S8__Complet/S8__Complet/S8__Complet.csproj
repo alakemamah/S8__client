@@ -219,6 +219,9 @@
     </Compile>
     <Compile Include="Models\RandomForestItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\DonneeRepository.cs" />
+    <Compile Include="Repository\IDonneeRepository.cs" />
+    <Compile Include="Repository\PredictionRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

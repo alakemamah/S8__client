@@ -12,15 +12,5 @@ namespace S8__Complet.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LogisticRegression
-    {
-        public int ID { get; set; }
-        public string Penalty { get; set; }
-        public int C { get; set; }
-        public string Solver { get; set; }
-        public int IdPred { get; set; }
-        public Nullable<double> Result { get; set; }
     
-        public virtual Prediction Prediction { get; set; }
-    }
 }

@@ -1,6 +1,6 @@
 ﻿namespace S8_Complet.Models
 {
-    public class RandomForest
+    public class RandomForestItem
     {
         public int ID { get; set; }
         public int Nestimator { get; set; }

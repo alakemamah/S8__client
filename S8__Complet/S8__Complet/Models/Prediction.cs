@@ -12,29 +12,5 @@ namespace S8__Complet.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Prediction
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Prediction()
-        {
-            this.Analytical = new HashSet<Analytical>();
-            this.KNN = new HashSet<KNN>();
-            this.LogisticRegression = new HashSet<LogisticRegression>();
-            this.RandomForest = new HashSet<RandomForest>();
-        }
     
-        public int ID { get; set; }
-        public System.DateTime Date { get; set; }
-        public int IdData { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Analytical> Analytical { get; set; }
-        public virtual Donnees Donnees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KNN> KNN { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LogisticRegression> LogisticRegression { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RandomForest> RandomForest { get; set; }
-    }
 }

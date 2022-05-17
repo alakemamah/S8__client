@@ -1,6 +1,6 @@
 ﻿namespace S8_Complet.Models
 {
-    public class LogisticRegression
+    public class LogisticRegressionItem
     {
         public int ID { get; set; }
         public string Penalty { get; set; }

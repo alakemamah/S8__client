@@ -1,62 +1,141 @@
-﻿@model S8__Complet.Models.PredictionItem
+﻿@model S8__Complet.Models.Analytical
 @{
     ViewData["Title"] = "Prediction";
 }
-@Html.BeginForm("Prediction","Pred",FormMethod.Post)
+
+
+@Html.BeginForm("Prediction", "Pred", FormMethod.Post)
 {
 <div class="container-fluid">
-       <div class="row">
-           <div class="col-md-4 ">
-                   <h5>Choose your data</h5>
-           </div>
-            <div class="col-md-4 ml-auto">
-                    <h5>Choose your models</h5>
-                    <div class="form-check">                     
-                        @Html.CheckBox("analytic", "false")
-                        @Html.Label("analytic", "Analytical Method")
-                    </div>
+    <div class="row">
+        <div class="col-md-4 ">
+            <h5>Choose your data</h5>
+            @Html.DropDownListFor(model => model.Prediction.IdData, (IEnumerable<SelectListItem>)ViewBag.dataNames, "Select")
+        </div>
+        <div class="col-md-4 ml-auto">
+            <h5>Choose your models</h5>
+            <div class="form-check">
+                @Html.CheckBox("analytic", "false")
+                @Html.Label("analytic", "Analytical Method")
+            </div>
 
-                    <div class="form-check">
-                        <a data-toggle="modal" data-target=".bootstrapmodal">
-                            @Html.CheckBox("logreg", "false")
-                        </a>                        
-                        @Html.Label("logreg", "Logistic Regression")
-                    </div>
+            <div class="form-check">
+                <a data-toggle="modal" data-target=".logreg">
+                    @Html.CheckBox("logreg", "false")
+                </a>
+                @Html.Label("logreg", "Logistic Regression")
+            </div>
 
-                    <div class="form-check">
-                        @Html.CheckBox("knn","false")
-                        @Html.Label("knn","KNN")
-                    </div>
-                    <div class="form-check">
-                        @Html.CheckBox("randfor","false")
-                        @Html.Label("randfor","Random Forest")
-                    </div>
-           </div>
-       </div>
-       <br />
-       <br />
-       <div class="row">
-           <div class="col-12">
-               <center>
-                    <input class="btn btn-danger btn-block" style="background-color: #a30c0c" ID="Button2" value="Predict" />
-               </center>
-           </div>
-       </div>
-   </div>
+            <div class="form-check">
+                <a data-toggle="modal" data-target=".knn">
+                    @Html.CheckBox("knn", "false")
+                </a>
+                @Html.Label("knn", "KNN")
+            </div>
+            <div class="form-check">
+                <a data-toggle="modal" data-target=".randfor">
+                    @Html.CheckBox("randfor", "false")
+                </a>
+                @Html.Label("randfor", "Random Forest")
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <center>
+                <input class="btn btn-danger btn-block" style="background-color: #a30c0c" ID="Button2" value="Predict" />
+            </center>
+        </div>
+    </div>
+</div>
    }
-
-<div class="modal fade bootstrapmodal" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<!--Modal for logistic regression-->
+<div class="modal fade logreg" id="logreg" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalToggleLabel">Logistic Regression</h5>
             </div>
             <div class="modal-body">
-                Show a second modal and hide this one with the button below.
+                <center>
+                    <div class="row">
+                        @Html.Label("penalty", "Penalty")
+                    </div>
+                    <div class="row">
+                        @Html.Label("c", "C")
+                        @Html.TextBox("c")
+                    </div>
+                    <div class="row">
+                        @Html.Label("solver", "Solver")
+                    </div>
+                </center>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Open second modal</button>
+                <input type="button" class="btn-success" value="Submit" />
+                <input type="button" class="btn-danger" value="Close" aria-label="Close" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for KNN-->
+<div class="modal fade knn" id="knn" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">KNN</h5>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div class="row">
+                        @Html.Label("algo", "Algorithm")
+                    </div>
+                    <div class="row">
+                        @Html.Label("metric", "Metric")
+                    </div>
+                    <div class="row">
+                        @Html.Label("neighbors", "Nneighbors")
+                        @Html.TextBox("neighbors")
+                    </div>
+                    <div class="row">
+                        @Html.Label("weights", "Weights")
+
+                    </div>
+                </center>
+            </div>
+            <div class="modal-footer">
+                 <input type="button" class="btn-success" value="Submit" />
+                        <input type="button" class="btn-danger" value="Close" aria-label="Close" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for Random Forest-->
+<div class="modal fade randfor" id="ranfor" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Random Forest</h5>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div class="row">
+
+                        @Html.Label("estimator", "N-estimator")
+                        @Html.TextBox("estimator")
+                    </div>
+                    <div class="row">
+                        @Html.Label("depth", "Max Depth")
+                        @Html.TextBox("depth")
+                    </div>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn-success" value="Submit" />
+                <input type="button" class="btn-danger" value="Close" aria-label="Close" />
             </div>
         </div>
     </div>

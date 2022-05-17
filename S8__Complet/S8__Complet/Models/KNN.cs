@@ -12,16 +12,5 @@ namespace S8__Complet.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class KNN
-    {
-        public int ID { get; set; }
-        public string Algorithm { get; set; }
-        public string Metric { get; set; }
-        public int Nneighbors { get; set; }
-        public string Weights { get; set; }
-        public int IdPred { get; set; }
-        public Nullable<double> Result { get; set; }
     
-        public virtual Prediction Prediction { get; set; }
-    }
 }
