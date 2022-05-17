@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Analytical">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="IdPred" Type="int" Nullable="false" />
+          <Property Name="Result" Type="float" />
+        </EntityType>
+        <EntityType Name="Donnees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="DataName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="KNN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Algorithm" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Metric" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Nneighbors" Type="int" Nullable="false" />
+          <Property Name="Weights" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdPred" Type="int" Nullable="false" />
+          <Property Name="Result" Type="float" />
+        </EntityType>
+        <EntityType Name="LogisticRegression">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Penalty" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="C" Type="int" Nullable="false" />
+          <Property Name="Solver" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdPred" Type="int" Nullable="false" />
+          <Property Name="Result" Type="float" />
+        </EntityType>
+        <EntityType Name="Prediction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="IdData" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RandomForest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Nestimator" Type="int" Nullable="false" />
+          <Property Name="MaxDepth" Type="int" Nullable="false" />
+          <Property Name="IdPred" Type="int" Nullable="false" />
+          <Property Name="Result" Type="float" />
+        </EntityType>
+        <Association Name="FK_Analytical_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="Analytical" Type="Self.Analytical" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Analytical">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KNN_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="KNN" Type="Self.KNN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KNN">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogisticRegression_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="LogisticRegression" Type="Self.LogisticRegression" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LogisticRegression">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prediction_Donnees">
+          <End Role="Donnees" Type="Self.Donnees" Multiplicity="1" />
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donnees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prediction">
+              <PropertyRef Name="IdData" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RandomForest_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="RandomForest" Type="Self.RandomForest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RandomForest">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Analytical" EntityType="Self.Analytical" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Donnees" EntityType="Self.Donnees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KNN" EntityType="Self.KNN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogisticRegression" EntityType="Self.LogisticRegression" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prediction" EntityType="Self.Prediction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RandomForest" EntityType="Self.RandomForest" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Analytical_Prediction" Association="Self.FK_Analytical_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="Analytical" EntitySet="Analytical" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KNN_Prediction" Association="Self.FK_KNN_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="KNN" EntitySet="KNN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogisticRegression_Prediction" Association="Self.FK_LogisticRegression_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="LogisticRegression" EntitySet="LogisticRegression" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prediction_Donnees" Association="Self.FK_Prediction_Donnees">
+            <End Role="Donnees" EntitySet="Donnees" />
+            <End Role="Prediction" EntitySet="Prediction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RandomForest_Prediction" Association="Self.FK_RandomForest_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="RandomForest" EntitySet="RandomForest" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Analytical">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="IdPred" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="Double" />
+          <NavigationProperty Name="Prediction" Relationship="Self.FK_Analytical_Prediction" FromRole="Analytical" ToRole="Prediction" />
+        </EntityType>
+        <EntityType Name="Donnees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DataName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Prediction" Relationship="Self.FK_Prediction_Donnees" FromRole="Donnees" ToRole="Prediction" />
+        </EntityType>
+        <EntityType Name="KNN">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Algorithm" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Metric" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nneighbors" Type="Int32" Nullable="false" />
+          <Property Name="Weights" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdPred" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="Double" />
+          <NavigationProperty Name="Prediction" Relationship="Self.FK_KNN_Prediction" FromRole="KNN" ToRole="Prediction" />
+        </EntityType>
+        <EntityType Name="LogisticRegression">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Penalty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C" Type="Int32" Nullable="false" />
+          <Property Name="Solver" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdPred" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="Double" />
+          <NavigationProperty Name="Prediction" Relationship="Self.FK_LogisticRegression_Prediction" FromRole="LogisticRegression" ToRole="Prediction" />
+        </EntityType>
+        <EntityType Name="Prediction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdData" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Analytical" Relationship="Self.FK_Analytical_Prediction" FromRole="Prediction" ToRole="Analytical" />
+          <NavigationProperty Name="Donnees" Relationship="Self.FK_Prediction_Donnees" FromRole="Prediction" ToRole="Donnees" />
+          <NavigationProperty Name="KNN" Relationship="Self.FK_KNN_Prediction" FromRole="Prediction" ToRole="KNN" />
+          <NavigationProperty Name="LogisticRegression" Relationship="Self.FK_LogisticRegression_Prediction" FromRole="Prediction" ToRole="LogisticRegression" />
+          <NavigationProperty Name="RandomForest" Relationship="Self.FK_RandomForest_Prediction" FromRole="Prediction" ToRole="RandomForest" />
+        </EntityType>
+        <EntityType Name="RandomForest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nestimator" Type="Int32" Nullable="false" />
+          <Property Name="MaxDepth" Type="Int32" Nullable="false" />
+          <Property Name="IdPred" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="Double" />
+          <NavigationProperty Name="Prediction" Relationship="Self.FK_RandomForest_Prediction" FromRole="RandomForest" ToRole="Prediction" />
+        </EntityType>
+        <Association Name="FK_Analytical_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="Analytical" Type="Self.Analytical" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Analytical">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prediction_Donnees">
+          <End Role="Donnees" Type="Self.Donnees" Multiplicity="1" />
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Donnees">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Prediction">
+              <PropertyRef Name="IdData" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KNN_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="KNN" Type="Self.KNN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KNN">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogisticRegression_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="LogisticRegression" Type="Self.LogisticRegression" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LogisticRegression">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RandomForest_Prediction">
+          <End Role="Prediction" Type="Self.Prediction" Multiplicity="1" />
+          <End Role="RandomForest" Type="Self.RandomForest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prediction">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RandomForest">
+              <PropertyRef Name="IdPred" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Analytical" EntityType="Self.Analytical" />
+          <EntitySet Name="Donnees" EntityType="Self.Donnees" />
+          <EntitySet Name="KNN" EntityType="Self.KNN" />
+          <EntitySet Name="LogisticRegression" EntityType="Self.LogisticRegression" />
+          <EntitySet Name="Prediction" EntityType="Self.Prediction" />
+          <EntitySet Name="RandomForest" EntityType="Self.RandomForest" />
+          <AssociationSet Name="FK_Analytical_Prediction" Association="Self.FK_Analytical_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="Analytical" EntitySet="Analytical" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prediction_Donnees" Association="Self.FK_Prediction_Donnees">
+            <End Role="Donnees" EntitySet="Donnees" />
+            <End Role="Prediction" EntitySet="Prediction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KNN_Prediction" Association="Self.FK_KNN_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="KNN" EntitySet="KNN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogisticRegression_Prediction" Association="Self.FK_LogisticRegression_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="LogisticRegression" EntitySet="LogisticRegression" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RandomForest_Prediction" Association="Self.FK_RandomForest_Prediction">
+            <End Role="Prediction" EntitySet="Prediction" />
+            <End Role="RandomForest" EntitySet="RandomForest" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Analytical">
+            <EntityTypeMapping TypeName="Model.Analytical">
+              <MappingFragment StoreEntitySet="Analytical">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdPred" ColumnName="IdPred" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donnees">
+            <EntityTypeMapping TypeName="Model.Donnees">
+              <MappingFragment StoreEntitySet="Donnees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DataName" ColumnName="DataName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KNN">
+            <EntityTypeMapping TypeName="Model.KNN">
+              <MappingFragment StoreEntitySet="KNN">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Algorithm" ColumnName="Algorithm" />
+                <ScalarProperty Name="Metric" ColumnName="Metric" />
+                <ScalarProperty Name="Nneighbors" ColumnName="Nneighbors" />
+                <ScalarProperty Name="Weights" ColumnName="Weights" />
+                <ScalarProperty Name="IdPred" ColumnName="IdPred" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogisticRegression">
+            <EntityTypeMapping TypeName="Model.LogisticRegression">
+              <MappingFragment StoreEntitySet="LogisticRegression">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+                <ScalarProperty Name="C" ColumnName="C" />
+                <ScalarProperty Name="Solver" ColumnName="Solver" />
+                <ScalarProperty Name="IdPred" ColumnName="IdPred" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prediction">
+            <EntityTypeMapping TypeName="Model.Prediction">
+              <MappingFragment StoreEntitySet="Prediction">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IdData" ColumnName="IdData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RandomForest">
+            <EntityTypeMapping TypeName="Model.RandomForest">
+              <MappingFragment StoreEntitySet="RandomForest">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nestimator" ColumnName="Nestimator" />
+                <ScalarProperty Name="MaxDepth" ColumnName="MaxDepth" />
+                <ScalarProperty Name="IdPred" ColumnName="IdPred" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

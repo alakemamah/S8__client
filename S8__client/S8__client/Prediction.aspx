@@ -17,7 +17,7 @@
             <div class="col-md-4 ml-auto">
                     <h5>Choose your models</h5>
                     <div class="form-check">
-                        <asp:CheckBox ID="CheckBox1" runat="server" />
+                        <asp:CheckBox ID="CheckBox1" runat="server"" />
                         <label class="form-check-label" for="flexCheckDefault">
                             Analytical Method
                         </label>

@@ -1,0 +1,46 @@
+﻿@model S8_Complet.Models.PredictionItem
+@{
+    ViewData["Title"] = "Prediction";
+}
+@Html.BeginForm("Prediction","Pred",FormMethod.Post)
+{
+<div class="container-fluid">
+       <div class="row">
+           <div class="col-md-4 ">
+                   <h5>Choose your data</h5>
+                   @Html.DisplayNameFor(model=>model.IdData)
+                   @Html.DropDownListFor(model=>model.IdData, new SelectList(Model.DataCollection,"ID","DataName"),"Select")
+            </div>
+            <div class="col-md-4 ml-auto">
+                    <h5>Choose your models</h5>
+                    <div class="form-check">
+                        @Html.CheckBox("analytic","false")
+                        @Html.Label("analytic","Analytical Method")
+                    </div>
+
+                    <div class="form-check">
+                        @Html.CheckBox("logreg","false")
+                        @Html.Label("logreg","Logistic Regression")
+                    </div>
+
+                    <div class="form-check">
+                        @Html.CheckBox("knn","false")
+                        @Html.Label("knn","KNN")
+                    </div>
+                    <div class="form-check">
+                        @Html.CheckBox("randfor","false")
+                        @Html.Label("randfor","Random Forest")
+                    </div>
+           </div>
+       </div>
+       <br />
+       <br />
+       <div class="row">
+           <div class="col-12">
+               <center>
+                    <input class="btn btn-danger btn-block" style="background-color: #a30c0c" ID="Button2" value="Predict" />
+               </center>
+           </div>
+       </div>
+   </div>
+   }
