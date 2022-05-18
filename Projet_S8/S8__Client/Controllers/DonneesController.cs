@@ -29,20 +29,22 @@ namespace S8__API.Controllers
         public static readonly HttpClient client = new HttpClient();
         public async Task<ICollection<Donnees>> GetDonneesAsync()
         {
-            ICollection<Donnees> donnees = new List<Donnees>();
-            HttpResponseMessage response = client.GetAsync("https://localhost:5001/api/Donnees").Result;
+            ICollection<Donnees> list_donnees = null;
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/api/Donnees/");
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+            HttpResponseMessage response = client.SendAsync(request).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                donnees = JsonConvert.DeserializeObject<List<Donnees>>(resp);
+                list_donnees = JsonConvert.DeserializeObject<ICollection<Donnees>>(resp);
             }
-            return donnees;
+            return list_donnees;
         }
         public IActionResult Index()
         {
-            ICollection<Donnees> donnees = GetDonneesAsync().Result;
-
-            return View(donnees);
+                return View(GetDonneesAsync().Result);
         }
 
 
