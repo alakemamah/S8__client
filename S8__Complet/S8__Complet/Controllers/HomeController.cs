@@ -36,10 +36,10 @@ namespace S8__Complet.Controllers
         {
           
             //IEnumerable<Donnees> dataNames = _donneeRepository.GetDonnee();
-           // ViewBag.Accounts = new SelectList(_donneeRepository.GetDonnee(), "AccountId", "AccountName");
-         //   PredictionItem pred = new PredictionItem();
-         //   ViewBag.Prediction = pred;
-            return View(_donneeRepository.GetDonnee());
+            ViewBag.Accounts = new SelectList(_donneeRepository.GetDonnee(), "AccountId", "AccountName");
+            PredictionItem pred = new PredictionItem();
+            ViewBag.Prediction = pred;
+            return View();
         }
     }
 }

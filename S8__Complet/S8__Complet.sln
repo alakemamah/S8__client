@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S8__Complet", "S8__Complet\S8__Complet.csproj", "{D80215B5-E7E7-4BB2-B66C-EDE467D286BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S8__API", "S8__API\S8__API.csproj", "{65E6559A-D321-4137-9D5A-E6DE4D5C05F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D80215B5-E7E7-4BB2-B66C-EDE467D286BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D80215B5-E7E7-4BB2-B66C-EDE467D286BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D80215B5-E7E7-4BB2-B66C-EDE467D286BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E6559A-D321-4137-9D5A-E6DE4D5C05F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E6559A-D321-4137-9D5A-E6DE4D5C05F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E6559A-D321-4137-9D5A-E6DE4D5C05F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E6559A-D321-4137-9D5A-E6DE4D5C05F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
