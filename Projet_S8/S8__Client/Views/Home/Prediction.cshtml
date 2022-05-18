@@ -4,8 +4,7 @@
 }
 
 
-@Html.BeginForm("Prediction", "Pred", FormMethod.Post)
-{
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4 ">
@@ -49,12 +48,12 @@
     <div class="row">
         <div class="col-12">
             <center>
-                <input class="btn btn-danger btn-block" style="background-color: #a30c0c" ID="Button2" value="Predict" />
+                <button class="btn btn-danger btn-block" style="background-color: #a30c0c" ID="Button2" >Predict</button>
             </center>
         </div>
     </div>
 </div>
-   }
+ 
 <!--Modal for logistic regression-->
 <div class="modal fade logreg" id="logreg" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">

@@ -42,7 +42,7 @@ namespace S8__Client.Controllers
         public async Task<User> GetUser(int id)
         {
             User user = null;
-            HttpResponseMessage response = client.GetAsync("api/users/" + id).Result;
+            HttpResponseMessage response = client.GetAsync("https://localhost:5001/api/users/" + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -62,7 +62,7 @@ namespace S8__Client.Controllers
         public async Task<User> GetUser(string username, string password)
         {
             User user = null;
-            HttpResponseMessage response = client.GetAsync("api/users/" + username + "/" + password).Result;
+            HttpResponseMessage response = client.GetAsync("https://localhost:5001/api/users/" + username + "/" + password).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -86,7 +86,7 @@ namespace S8__Client.Controllers
         public async Task<Donnees> GetDonneesAsync(int? id)
         {
             Donnees Donnees = null;
-            HttpResponseMessage response = client.GetAsync("api/Donnees/" + id).Result;
+            HttpResponseMessage response = client.GetAsync("https://localhost:5001/api/Donnees/5/" + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -99,7 +99,7 @@ namespace S8__Client.Controllers
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/Donnees", donnees);
+                HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:5001/api/Donnees", donnees);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -114,7 +114,7 @@ namespace S8__Client.Controllers
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/Donnees/" + donnees.Id, donnees);
+                HttpResponseMessage response = await client.PutAsJsonAsync("https://localhost:5001/api/Donnees/" + donnees.Id, donnees);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -129,7 +129,7 @@ namespace S8__Client.Controllers
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("api/Donnees/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("https://localhost:5001/api/Donnees/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
